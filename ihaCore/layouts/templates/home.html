@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% block main %}
+<div class="wrapper">
+
+  {% include 'navbar.html' %}
+
+  {% include 'sidebar.html' %}
+  <div class="content-wrapper">
+
+      {% block content %}
+
+      {% endblock content %}
+    
+  </div>
+
+  {% include 'footer.html' %}
+</div>
+{% endblock main %}

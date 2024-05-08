@@ -1,0 +1,69 @@
+{% extends 'index.html' %}
+
+{% block main %}
+
+<div class="login-page">
+
+
+
+<div class="register-box">
+    <div class="register-logo">
+      <a href="">İHA KİRALAMA</a>
+    </div>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+        <p class="login-box-msg">Üye olun</p>
+  
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Adı" name="firstName" id="firstName" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Soyadı" name="lastName" id="lastName" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Kullanıcı adı" name="username" id="username" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="E Posta" name="email" id="email" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Kayıt ol</button>
+        </form>
+        <a href="/auth/login" class="text-center">Zaten bir hesabım var</a>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+  <!-- /.register-box -->
+</div>
+  {% endblock main %}

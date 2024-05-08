@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+
+{% block main %}
+
+<div class="login-page">
+
+<div class="login-box">
+    <div class="login-logo">
+      <a href="../../index2.html">İHA KİRALAMA</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg"></p>
+  
+        <form method="POST" action="{% url 'sign_in' %}">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="username" id="username">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Şifre" name="password" id="password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Giriş yap</button>
+            </div>
+          </div>
+        </form>
+  
+        <p class="mb-0">
+          <a href="/auth/register" class="text-center">Hesabınız yok mu? Kayıt olun.</a>
+        </p>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div><!-- /.login-box -->
+</div>
+
+  {% endblock main %}
