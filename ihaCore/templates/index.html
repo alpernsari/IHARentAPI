@@ -14,7 +14,15 @@
     <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
-    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/datatables/jquery.dataTables.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/datatables.bootstrap4.css' %}" />
+    <link rel="stylesheet" href="{% static 'plugins/datatables-colreorder/css/colReorder.bootstrap4.css' %}" />
+    <link rel="stylesheet" href="{% static 'plugins/datatables-rowreorder/css/rowReorder.bootstrap4.css' %}" />
+    <link rel="stylesheet" href="{% static 'plugins/datatables-select/css/select.bootstrap4.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'plugins/sweetalert2/sweetalert2.css' %}" />
 
     </head>
     <body class="hold-transition">
@@ -30,5 +38,41 @@
     <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js '%}"></script>
     <!-- AdminLTE App -->
     <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+   <script src="{% static 'dist/js/pages/dashboard.js' %}"></script> 
+
+
+    <!-- DataTables JS -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.js' %}"></script>
+    <script src="{% static 'plugins/datatables-colreorder/js/colReorder.bootstrap4.js' %}"></script>
+    <script src="{% static 'plugins/datatables-rowreorder/js/rowReorder.bootstrap4.js' %}"></script>
+    <script src="{% static 'plugins/datatables-select/js/select.bootstrap4.js' %}"></script>
+
+    <!-- Datatable dili türkçe ayarları -->
+    <script src="{% static 'plugins/datatables/Turkish.json' %}"></script>
+
+    <script src="{% static 'plugins/sweetalert2/sweetalert2.all.js' %}"></script>
+
+  <!-- Datatable'ların konfigürasyonu için her sayfada tek tek konfigüre etmek yerine burayı ayarladım -->
+  <script>
+    $(document).ready(function() {
+      $('#datatable').DataTable({
+        lengthMenu: [5, 10, 25, 50],
+        pageLength: 5,
+        autoWidt: true,
+        responsive: true,
+        language: {
+            "url": "{% static 'plugins/datatables/Turkish.json' %}"
+        },
+        searching: true,
+        ordering: true,
+    });
+  });
+  
+</script>
+
     </body>
 </html>

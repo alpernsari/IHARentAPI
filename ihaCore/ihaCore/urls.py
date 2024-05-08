@@ -28,4 +28,5 @@ urlpatterns = [
     path('auth/log_out/', views.log_out, name='log_out'),
     path('home/',layout_views.home, name="home"),
     path('iha/',include('IHAModule.urls')),
+    path('hiring/',include('HiringModule.urls')),
 ]

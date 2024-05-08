@@ -89,7 +89,7 @@ DATABASES = {
         'USER': 'postgres',       # PostgreSQL kullanıcı adınızı buraya yazın
         'PASSWORD': 'root',   # PostgreSQL şifrenizi buraya yazın
         'HOST': 'localhost',           # Veritabanı sunucusunun adresini buraya yazın (genellikle localhost)
-        'PORT': '5432',                # PostgreSQL bağlantı noktasını buraya yazın (genellikle 5432)
+        'PORT': '5433',                # PostgreSQL bağlantı noktasını buraya yazın (genellikle 5432)
     }
 }
 
