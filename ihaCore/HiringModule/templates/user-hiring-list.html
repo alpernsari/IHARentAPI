@@ -64,16 +64,16 @@
 
     function confirmDelete(ihaId) {
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
+            title: 'Silmek istediğinize emin misiniz?',
+            text: '',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Onayla',
+            cancelButtonText: 'Vazgeç',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Send AJAX request to delete the item
                 $.ajax({
                     url: `/hiring/user-list/delete/${ihaId}`,
                     type: 'DELETE',
@@ -81,22 +81,19 @@
                         'X-CSRFToken': '{{ csrf_token }}'
                     },
                     success: function(response) {
-                        // Item deleted successfully
                         Swal.fire(
-                            'Deleted!',
-                            'The item has been deleted.',
-                            'success'
+                            'Silindi!',
+                            'Kayıt başarı ile silindi.',
+                            'success',
                         ).then(() => {
-                            // Reload the page or update the table, etc.
                             location.reload();
                         });
                     },
                     error: function(xhr, status, error) {
-                        // Error occurred while deleting the item
                         Swal.fire(
-                            'Error!',
-                            'An error occurred while deleting the item.',
-                            'error'
+                            'Hata!',
+                            'Kayıt silinirken hata meydana geldi',
+                            'error',
                         );
                     }
                 });

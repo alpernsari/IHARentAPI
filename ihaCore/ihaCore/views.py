@@ -17,8 +17,7 @@ def register(request):
             password = request.data.get('password')
             email = request.data.get('email')
 
-            print(password)
-
+            # aynı username e sahip bir kullanıcı var mı kontrolü
             if User.objects.filter(username=username).exists():
                 return Response({'message': 'Kullanıcı kaydı mevcut'})
             # Kullanıcıyı oluştur
@@ -44,6 +43,7 @@ def sign_in(request):
             username = request.data.get('username')
             password = request.data.get('password')
             
+            #session oluştur
             user = authenticate(username=username, password=password)
 
 

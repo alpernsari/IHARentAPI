@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# yüklenen uygulamar ile modüller buraya eklendi
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,6 +76,7 @@ WSGI_APPLICATION = 'ihaCore.wsgi.application'
 
 # STATIC_URL = "assets/"
 
+# adminlte templateini sistemde kullanmak
 STATICFILES_DIRS =[ 
     BASE_DIR / "assets"
 ]
@@ -85,11 +87,11 @@ STATICFILES_DIRS =[
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ihaDB',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': 'ihaDB',  # Veritabanı adınızı buraya yazın
+        'USER': 'postgres',       # PostgreSQL kullanıcı adınızı buraya yazın
+        'PASSWORD': 'root',   # PostgreSQL şifrenizi buraya yazın
+        'HOST': 'localhost',           # Veritabanı sunucusunun adresini buraya yazın (genellikle localhost)
+        'PORT': '5432',                # PostgreSQL bağlantı noktasını buraya yazın (genellikle 5432)
     }
 }
 

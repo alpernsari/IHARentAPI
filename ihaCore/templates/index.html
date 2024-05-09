@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IHA</title>
 
+    {% comment %} gerekli css ler aşağıda eklendi {% endcomment %}
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -32,10 +34,16 @@
     </head>
     <body class="hold-transition">
 
+        {% comment %} 
+          projedeki tüm sayfalar öncelikle burdali main block unun extend edecektir
+        {% endcomment %}
         {% block main %}
-        <!-- İçerik bloğu -->
+
         {% endblock main %}
 
+
+
+      {% comment %} gerekli js dosyalara aşağıda eklenmiştir {% endcomment %}
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
@@ -45,8 +53,7 @@
     <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{% static 'dist/js/demo.js' %}"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-   <script src="{% static 'dist/js/pages/dashboard.js' %}"></script> 
+
 
 
     <!-- DataTables JS -->
@@ -64,6 +71,12 @@
     <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
     <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
 
+
+      {% comment %} 
+      tüm sayfalar buradaki main block unun içinde bulunduğu için hepsinde ortal olarak kullanabilmek
+      adına message yapısı buraya kuruldu
+      {% endcomment %}
+
   {% if messages %}
     {% for message in messages %}
       {% if message.tags == 'success'%}
@@ -79,6 +92,7 @@
   {% endif %}
 
   <script>
+    //datatable burda konfigüre ediliyo
     $(document).ready(function() {
       $('#datatable').DataTable({
         lengthMenu: [5, 10, 25, 50],
@@ -86,6 +100,7 @@
         autoWidt: true,
         responsive: true,
         language: {
+          //türkçe dil ekleniyor
             "url": "{% static 'plugins/datatables/Turkish.json' %}"
         },
         searching: true,

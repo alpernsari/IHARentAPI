@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import permission_required,login_required
 from HiringModule.models import Hiring
 from django.contrib import messages
+
+
 @api_view(['POST','GET'])
 @login_required
 @permission_required('IHAModule.view_iha',login_url='/auth/login')
@@ -71,13 +73,14 @@ def iha_delete(request,id):
         iha = IHA.objects.get(id=id)
 
     except IHA.DoesNotExist:
-        return Response(status=404)  # Return a 404 response if the object doesn't exist
+        messages.error(request,"Kayıtlı iha bulunamadı")
+        return Response(status=404)
     
     if Hiring.objects.filter(iha=iha).exists():
-        # Check if any related hiring records have end_date_time in the future
+        # aktif olarak kiralık durumda ise silinmesini engeller
         if Hiring.objects.filter(iha=iha, end_date_time__gte=timezone.now()).exists():
-            # If there are related hiring records with future end_date_time, don't delete the IHA
-            return Response(status=403)  # Return a 403 Forbidden status code
+            messages.warning(request,"İha aktif olarak kiralık durumda olduğu için silinemez.")
+            return Response(status=403) 
 
     iha.delete()
     return Response(status=204)

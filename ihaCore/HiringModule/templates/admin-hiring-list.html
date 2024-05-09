@@ -1,10 +1,9 @@
 {% extends 'home.html' %}
+{% comment %} layout daki homa a yerleştirebilmek için extend edilir {% endcomment %}
 
 {% block content %}
 
 <section class="content">
-
-    
     <div class="card mt-5">
       <div class="card-header">
         <h3 class="card-title">Kiralamalar</h3>
@@ -58,19 +57,20 @@
 
 
 <script>
-
+    //asenkron olarak silme işlemi gerçekleştirmek için ajax kullanıldı
+    //tetiklenen swal a onay mesajı gelirse veri silinir. sayfa tekrar yüklenerek yeni liste getirilir
     function confirmDelete(ihaId) {
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
+            title: 'Silmek istediğinize emin misiniz?',
+            text: '',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Onayla',
+            cancelButtonText: 'Reddet',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Send AJAX request to delete the item
                 $.ajax({
                     url: `/hiring/delete/${ihaId}`,
                     type: 'DELETE',
@@ -78,21 +78,18 @@
                         'X-CSRFToken': '{{ csrf_token }}'
                     },
                     success: function(response) {
-                        // Item deleted successfully
                         Swal.fire(
-                            'Deleted!',
-                            'The item has been deleted.',
+                            'Silindi!',
+                            'Kayıt başarı ile silindi.',
                             'success'
                         ).then(() => {
-                            // Reload the page or update the table, etc.
                             location.reload();
                         });
                     },
                     error: function(xhr, status, error) {
-                        // Error occurred while deleting the item
                         Swal.fire(
-                            'Error!',
-                            'An error occurred while deleting the item.',
+                            'Hata!',
+                            'Kayıt silinirken hata meydana geldi',
                             'error'
                         );
                     }

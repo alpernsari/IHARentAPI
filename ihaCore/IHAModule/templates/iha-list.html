@@ -82,7 +82,6 @@
             cancelButtonText: 'Vazgeç',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Send AJAX request to delete the item
                 $.ajax({
                     url: `/iha/delete/${ihaId}`,
                     type: 'DELETE',
@@ -90,23 +89,20 @@
                         'X-CSRFToken': '{{ csrf_token }}'
                     },
                     success: function(response) {
-                        // Item deleted successfully
                         Swal.fire(
                             'SİLİNDİ!',
                             'İHA başarıyla silindi.',
-                            'success'
+                            'success',
                         ).then(() => {
-                            // Reload the page or update the table, etc.
                             location.reload();
                         });
                     },
                     error: function(xhr, status, error) {
-                        // Error occurred while deleting the item
                         if(xhr.status == 403){
                             Swal.fire(
                                 'Hata!',
                                 'Bu iha aktif olarak kiralama durumunda olduğu için silinemez',
-                                'error'
+                                'error',
                             ); 
                         }
                         else{

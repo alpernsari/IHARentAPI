@@ -7,6 +7,13 @@
   {% include 'sidebar.html' %}
   <div class="content-wrapper">
 
+      {% comment %} 
+      burda sayfa yapısı oluşturuldu. kullanılan temanın özellikleri göz önünde bulundurularak
+      üstte navbar, solda sidebar, allta footer ve hepsinin arasında kalan kısıma da içerik geliyor
+      bunu sağlayabilmek için navbar,sidebar ve footer bu html de gerekli yerlere yerleştirildi
+      alt sayfalardan extend edilebilmesi için content isimli block oluşturuldu 
+      {% endcomment %}
+
       {% block content %}
 
       {% endblock content %}

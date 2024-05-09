@@ -56,6 +56,8 @@
               </p>
             </a>
           </li>
+          {% comment %} kullanıcı admin değilse bu sayfayı sidebar da göremesin {% endcomment %}
+          {% if user.is_staff %}
           <li class="nav-item">
             <a href="/hiring/list/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -64,6 +66,7 @@
               </p>
             </a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a href="/hiring/user-list/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
