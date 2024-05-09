@@ -34,7 +34,6 @@ def hire_iha(request):
         return redirect("/hiring/user-list")
     else:
         all_ihas = IHA.objects.all()
-
         return render(request,'hiring-iha.html',{'all_ihas' : all_ihas})
 
 @api_view(['DELETE'])

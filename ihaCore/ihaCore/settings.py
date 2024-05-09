@@ -85,11 +85,11 @@ STATICFILES_DIRS =[
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ihaDB',  # Veritabanı adınızı buraya yazın
-        'USER': 'postgres',       # PostgreSQL kullanıcı adınızı buraya yazın
-        'PASSWORD': 'root',   # PostgreSQL şifrenizi buraya yazın
-        'HOST': 'localhost',           # Veritabanı sunucusunun adresini buraya yazın (genellikle localhost)
-        'PORT': '5432',                # PostgreSQL bağlantı noktasını buraya yazın (genellikle 5432)
+        'NAME': 'ihaDB',
+        'USER': 'postgres',
+        'PASSWORD': 'root',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 

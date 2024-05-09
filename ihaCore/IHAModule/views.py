@@ -1,33 +1,43 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.contrib.auth import authenticate, login,logout
-from django.shortcuts import render,redirect,get_object_or_404
+from django.utils import timezone
+from django.shortcuts import render,redirect
 from IHAModule.models import IHA
 from django.http import JsonResponse
 from django.contrib.auth.decorators import permission_required,login_required
-
-
+from HiringModule.models import Hiring
+from django.contrib import messages
 @api_view(['POST','GET'])
 @login_required
 @permission_required('IHAModule.view_iha',login_url='/auth/login')
 def iha_list(request):
-    all_iha = IHA.objects.all()
-    return render(request, 'iha-list.html',{'all_iha':all_iha})
+    try:
+        all_iha = IHA.objects.all()
+        messages.info(request, "İhalar başarıyla listelendi")
+        return render(request, 'iha-list.html',{'all_iha':all_iha})
+    except:
+        messages.error(request, "İhalar listelenirken bir hata meydana geldi")
+
 
 @api_view(['POST','GET'])
 @login_required
 @permission_required('IHAModule.add_iha',login_url='/auth/login')
 def iha_add(request):
+    try:
+        if request.method == 'POST':
+            brand = request.data.get('brand')
+            model = request.data.get('model')
+            weight = request.data.get('weight')
+            category = request.data.get('category')
+            iha = IHA(brand=brand, model=model, weight=weight, category=category)
+            iha.save()
+            messages.success(request, "İha başarı ile eklendi")
+            return redirect('/iha/list')
+        return render(request, 'iha-add.html')
 
-    if request.method == 'POST':
-        brand = request.data.get('brand')
-        model = request.data.get('model')
-        weight = request.data.get('weight')
-        category = request.data.get('category')
-        iha = IHA(brand=brand, model=model, weight=weight, category=category)
-        iha.save()
-        return redirect('')
-    return render(request, 'iha-add.html')
+    except:
+        messages.error(request, "İha eklenirken bir hata meydana geldi")
+        return render(request, 'iha-add.html')
 
 
 @api_view(['POST','GET'])
@@ -35,15 +45,22 @@ def iha_add(request):
 @permission_required('IHAModule.change_iha',login_url='/auth/login')
 def iha_update(request,id):
 
-    iha = IHA.objects.get(id=id)
-    if request.method == 'POST':
-        iha.brand = request.data.get('brand')
-        iha.model = request.data.get('model')
-        iha.weight = request.data.get('weight')
-        iha.category = request.data.get('category')
-        iha.save()
-        return redirect('/iha/list')
-    return render(request, 'iha-update.html',{'iha':iha})
+    try:
+        iha = IHA.objects.get(id=id)
+        if request.method == 'POST':
+            iha.brand = request.data.get('brand')
+            iha.model = request.data.get('model')
+            iha.weight = request.data.get('weight')
+            iha.category = request.data.get('category')
+            iha.save()
+            messages.success(request, "İha başarı ile güncellendi")
+
+            return redirect('/iha/list')
+        return render(request, 'iha-update.html',{'iha':iha})
+    except:
+        messages.error(request, "İha güncellenirken bir hata meydana geldi")
+        return render(request, 'iha-update.html',{'iha':iha})
+
 
 
 @api_view(['DELETE'])
@@ -52,15 +69,28 @@ def iha_update(request,id):
 def iha_delete(request,id):
     try:
         iha = IHA.objects.get(id=id)
-        
+
     except IHA.DoesNotExist:
         return Response(status=404)  # Return a 404 response if the object doesn't exist
     
+    if Hiring.objects.filter(iha=iha).exists():
+        # Check if any related hiring records have end_date_time in the future
+        if Hiring.objects.filter(iha=iha, end_date_time__gte=timezone.now()).exists():
+            # If there are related hiring records with future end_date_time, don't delete the IHA
+            return Response(status=403)  # Return a 403 Forbidden status code
+
     iha.delete()
     return Response(status=204)
 
 @api_view(['GET'])
 def iha_detail(request,id):
-    iha = IHA.objects.get(id=id)
-    return render(request, 'iha-detail.html',{'iha':iha})
+    try:
+        iha = IHA.objects.get(id=id)
+        messages.success(request, "İha başarı ile getirildi")
+
+        return render(request, 'iha-detail.html',{'iha':iha})
+    except:
+        messages.error(request, "İha bilgileri getirilirken bir hata meydana geldi")
+        return redirect(request, 'iha-list.html')
+
         
