@@ -7,54 +7,43 @@
     
     <div class="card mt-5">
       <div class="card-header">
-        <h3 class="card-title">İHA'LAR</h3>
-        {% if perms.add_iha %}
-        <a type="button" class="btn btn-primary float-left ml-5" href="add">
-            Yeni İHA Ekle
-        </a>
-        {% endif %}
+        <h3 class="card-title">Kiralamalar</h3>
       </div>
       <div class="card-body">
         <table class="table table-bordered mt-5" id="datatable">
             <thead>
                 <tr>
-                    <th>Marka</th>
-                    <th>Model</th>
-                    <th>Ağırlık</th>
-                    <th>Kategori</th>
+                    <th>İHA Marka</th>
+                    <th>İHA Model</th>
+                    <th>Kiralama Başlangıç</th>
+                    <th>Kiralama Bitiş</th>
+                    <th>Kiralayan Kişi</th>
                     <th>İşlemler</th>
-
                 </tr>
             </thead>
             <tbody>
-                {% for iha in all_iha %}
+                {% for hire in all_hirings %}
                 <tr>
-                    <td>{{ iha.brand }}</td>
-                    <td>{{ iha.model }}</td>
-                    <td>{{ iha.weight }}</td>
-                    <td>{{ iha.category }}</td>
+                    <td>{{ hire.iha.brand }}</td>
+                    <td>{{ hire.iha.model }}</td>
+                    <td>{{ hire.start_date_time }}</td>
+                    <td>{{ hire.end_date_time }}</td>
+                    <td>{{ hire.user.first_name }} {{ hire.user.last_name }}</td>
                     <td>
                         <div class="row col-12">
-                            {% if perms.add_iha %}
-                            <div class="col-3">
-                                <a type="button" class="btn btn-warning" href="{% url 'iha_update' id=iha.id %}">
+                            <div class="col-5">
+                                <a type="button" class="btn btn-warning" href="{% url 'hiring_update' hiring_id=hire.id %}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </div>
-                            <div class="col-3">
-                                <a type="button" class="btn btn-danger" onclick="confirmDelete({{ iha.id }})">
+                            <div class="col-5">
+                                <a type="button" class="btn btn-danger" onclick="confirmDelete({{ hire.id }})">
                                     <i class="fas fa-trash"></i>
-                                </a>
-                            </div>
-                            {% endif %}
-                            <div class="col-3">
-                                <a type="button" class="btn btn-info" href="{% url 'iha_detail' id=iha.id %}">
-                                    <i class="fas fa-eye"></i>
                                 </a>
                             </div>
                         </div>
                     </td>
-
+                    
                 </tr>
                 {% endfor %}
 
@@ -83,7 +72,7 @@
             if (result.isConfirmed) {
                 // Send AJAX request to delete the item
                 $.ajax({
-                    url: `delete/${ihaId}`,
+                    url: `/hiring/delete/${ihaId}`,
                     type: 'DELETE',
                     headers: {
                         'X-CSRFToken': '{{ csrf_token }}'
@@ -114,12 +103,3 @@
 </script>
 {% endblock content %}
 
-
-{% comment %}                             
-    fetch('get_list')
-    .then(response => response.text())
-    .then(data => {
-    document.getElementById("datatable").innerHTML = data;
-    })
-    .catch(error => console.error('Error updating table:', error));
-{% endcomment %}

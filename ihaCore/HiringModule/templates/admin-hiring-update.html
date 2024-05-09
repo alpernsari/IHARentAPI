@@ -1,0 +1,56 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<section class="content">
+
+    <div class="card mt-5">
+        <div class="card-header">
+        <h3 class="card-title">Kiralama Güncelleme</h3>
+    </div>
+    <div class="card-body">
+
+        <h3>{{hiring.user.first_name}} {{hiring.user.last_name}}</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col">
+                    <label>Kiralanacak İHA</label>
+                    <select class="form-control" id="ihas" name="ihas" required>
+                        {% for iha in all_ihas %}
+                            {% if iha.id == hiring.iha_id %}
+                            <option value="{{ iha.id }}" selected>
+                                {{ iha.brand }} - {{ iha.model }}
+                            </option>
+                            {% else %}
+                            <option value="{{ iha.id }}">
+                                {{ iha.brand }} - {{ iha.model }}
+                            </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label for="weight">Kiralama Başlangıç</label>
+                    <input type="datetime-local" class="form-control" id="start_date_time" name="start_date_time" value="{{ hiring.start_date_time|date:'Y-m-d\TH:i' }}" required>
+                </div>
+                <div class="col">
+                    <label for="weight">Kiralama bitiş</label>
+                    <input type="datetime-local" class="form-control" id="end_date_time" name="end_date_time"  value="{{ hiring.end_date_time|date:'Y-m-d\TH:i' }}" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3 float-right">Ekle</button>
+        </form>
+    </div>
+    
+</section>
+
+
+
+
+{% endblock content %}

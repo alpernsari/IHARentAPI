@@ -9,8 +9,8 @@
       <div class="card-header">
         <h3 class="card-title">Kiralamalar</h3>
         <a type="button" class="btn btn-primary float-left ml-5" href="add">
-            Kirala
-        </a>
+          İHA Kirala
+      </a>
       </div>
       <div class="card-body">
         <table class="table table-bordered mt-5" id="datatable">
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for hire in all_hirings %}
+                {% for hire in user_hirings %}
                 <tr>
                     <td>{{ hire.iha.brand }}</td>
                     <td>{{ hire.iha.model }}</td>
@@ -35,12 +35,12 @@
                     <td>
                         <div class="row col-12">
                             <div class="col-5">
-                                <a type="button" class="btn btn-warning">
+                                <a type="button" class="btn btn-warning" href="{% url 'user_hiring_update' hiring_id=hire.id %}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </div>
                             <div class="col-5">
-                                <a type="button" class="btn btn-danger" onclick="confirmDelete({{ iha.id }})">
+                                <a type="button" class="btn btn-danger" onclick="confirmDelete({{ hire.id }})">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
@@ -75,7 +75,7 @@
             if (result.isConfirmed) {
                 // Send AJAX request to delete the item
                 $.ajax({
-                    url: `delete/${ihaId}`,
+                    url: `/hiring/user-list/delete/${ihaId}`,
                     type: 'DELETE',
                     headers: {
                         'X-CSRFToken': '{{ csrf_token }}'

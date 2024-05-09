@@ -4,6 +4,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import render,redirect
+from django.contrib.auth.models import Group
 
 @api_view(['POST','GET'])
 def register(request):
@@ -24,6 +25,10 @@ def register(request):
             user = User.objects.create_user(username=username, email=email, password=password, 
             first_name=firstName, last_name=lastName)
             user.save()
+
+            group = Group.objects.get(name='user')
+            user.groups.add(group)
+
             return redirect("/auth/register")
         except Exception as e: 
             print(e)
@@ -41,8 +46,7 @@ def sign_in(request):
             
             user = authenticate(username=username, password=password)
 
-            print(user)
-            print("*****************************************************************")
+
             if user is not None:
                 login(request,user)
                 return redirect('/home')

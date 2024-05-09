@@ -1,0 +1,37 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<section class="content">
+
+    <div class="card mt-5">
+        <div class="card-header">
+        <h3 class="card-title">İHA Detay</h3>
+    </div>
+    <div class="card-body">
+            <div class="form-row">
+                <div class="col">
+                    <label for="brand">Marka</label>
+                    <h6 class="form-control" id="brand" name="brand">{{ iha.brand }}</h6>
+                </div>
+                <div class="col">
+                    <label for="model">Model</label>
+                    <h6  class="form-control" id="model" name="model"> {{ iha.model }}</h6>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label for="weight">Ağırlık</label>
+                    <h6 class="form-control" id="weight" name="weight">{{ iha.weight  }}</h6>
+                </div>
+                <div class="col">
+                    <label for="category">Kategori</label>
+                    <h6 class="form-control" id="category" name="category" >{{ iha.category }}</h6>
+                </div>
+            </div>
+
+    </div>
+    
+</section>
+
+{% endblock content %}
