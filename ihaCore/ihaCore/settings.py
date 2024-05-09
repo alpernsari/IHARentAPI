@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'ihaDB', 
         'USER': 'postgres',       
         'PASSWORD': 'root',   
-        'HOST': 'local',           
+        'HOST': 'localhost',           
         'PORT': '5432',                
     }
 }
